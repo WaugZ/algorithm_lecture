@@ -5,7 +5,8 @@ using namespace std;
 
 const int MAX = 100;
 
-void print(double mat[MAX][MAX], int n) {
+template <typename T>
+void print(T mat[MAX][MAX], int n) {
     for(int i = 1; i <= n; i++) {
         for(int j = 0; j <= n; j++) {
 //            cout << "[" << i << "][" << j << "] = " << mat[i][j];
@@ -72,6 +73,8 @@ int main() {
     print(w, n);
     cout << "m:\n";
     print(m, n);
+    cout << "s:\n";
+    print(s, n);
 
     for(int i = 1; i <= n; i++) {
         for(int j = i + 1; j <= n; j++) {
@@ -87,12 +90,12 @@ int main() {
                     if(w[i1][j] <= w[i][j1]) cout << "w monotonicity pass";
                     else cout << "w monotonicity no pass";
                     cout << endl;
-                    cout << "m(" << i << "," << j << ")=" << m[i][j] << '\t';
-                    cout << "m(" << i1 << "," << j << ")=" << m[i1][j] << '\t';
-                    cout << "m(" << i << "," << j1 << ")=" << m[i][j1] << '\t';
-                    cout << "m(" << i1 << "," << j1 << ")=" << m[i1][j1] << '\t';
-                    if(m[i][j] + m[i1][j1] <= m[i1][j] + m[i][j1]) cout << "m quadrangle pass";
-                    else cout << "m quadrangle no pass";
+                    cout << "s(" << i << "," << j << ")=" << s[i][j] << '\t';
+                    cout << "s(" << i1 << "," << j << ")=" << s[i1][j] << '\t';
+                    cout << "s(" << i << "," << j1 << ")=" << s[i][j1] << '\t';
+                    cout << "s(" << i1 << "," << j1 << ")=" << s[i1][j1] << '\t';
+                    if(s[i1][j] <= s[i][j1]) cout << "s monotonicity pass";
+                    else cout << "s monotonicity no pass";
                     cout << endl;
                 }
             }

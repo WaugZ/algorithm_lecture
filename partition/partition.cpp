@@ -43,7 +43,7 @@ int main()
     int n;
     while(cin >> n && n > 0) {
         const int MAX_MEMORY = n + 1;
-        // 借助一个全局数组（对于该函数）使得栈之间可以共享内存
+        // 借助一个全局数组（对于该函数）使得函数栈之间可以共享内存
         int *mem = new int[MAX_MEMORY];
         partition(n, mem);
         delete[] mem;

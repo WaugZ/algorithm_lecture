@@ -33,7 +33,8 @@ private:
   
   double fitness(int id) {
     double y = id / double(top);
-    return y * sin(7. / y) + 3.;
+    double epthlon = 1e-20;
+    return y * sin(7. / (y + epthlon)) + 3.;
   }
   
   // 保留原排序，只对index排序
@@ -67,12 +68,15 @@ private:
       group[i] = id;
       choose[i] = 0;
     }
-    while (iter < n) {
+    while (true) {
       double sum_fit = 0.;
       //  fitness for every identity
       for(int i = 0; i < m; i++) {
         fs[i] = fitness(group[i]);
         sum_fit += fs[i];
+      }
+      if(iter + 1 == n) {
+        break;
       }
       //  probobilty and the number of each chromosome to be chosen
       int left = m;
@@ -130,11 +134,20 @@ private:
         group[i + 1] = child_1;
       }
       
+      // debug
+//      cout << "Iter " << iter << ' ';
+//      for(auto i : group) {
+//        cout << i << ' ';
+//      }
+//      cout << endl;
       iter++;
     }
     
     //  the max fitness
-    double best = *std::max_element(fs.begin(), fs.end());
+    auto pos = std::max_element(fs.begin(), fs.end());
+    double best = *pos;
+    long offset = pos - fs.begin();
+    cout << "The best pos is " << group[offset] << " and the point " <<  best << endl;
 
   }
   
@@ -143,11 +156,12 @@ public:
     len = 10;
     top = 1023;
     n = 0xffff;
-    int id = 0b1111111111;
-    cout << id << ' ' << fitness(id) << endl;
+//    int id = 0b1111111111;
+//    cout << id << ' ' << fitness(id) << endl;
     m = 252;
     p_c = 1.;
     p_m = .01;
+    gen();
   }
   
   
